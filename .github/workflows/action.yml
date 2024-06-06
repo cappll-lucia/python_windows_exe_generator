@@ -28,10 +28,6 @@ jobs:
         $date = Get-Date -Format "yyyyMMdd_HHmmss"
         pyinstaller --onefile --name "MyApp_$date" --windowed main.py
 
-    - name: Remove Existing Executable
-      run: |
-        Remove-Item -Path ".\MyApp.exe" -Force -ErrorAction SilentlyContinue
-
     - name: Move Executable
       run: |
         mv ./dist/MyApp_$date.exe ./
