@@ -1,21 +1,21 @@
+# Simple Python program to greet the user
 
-def get_name():
-    return input("Please enter your name: ")
+import sys
 
-
-def get_age():
-    return int(input("Please enter your age: "))
-
-
+# Function to print greeting message
 def greet_user(name, age):
     print(f"Hello, {name}! You are {age} years old.")
 
-
+# Main function to run the program
 def main():
-    name = get_name()
-    age = get_age()
+    if len(sys.argv) != 3:
+        print("Usage: main.exe <name> <age>")
+        sys.exit(1)
+    
+    name = sys.argv[1]
+    age = sys.argv[2]
     greet_user(name, age)
 
-
+# Entry point of the program
 if __name__ == "__main__":
     main()
