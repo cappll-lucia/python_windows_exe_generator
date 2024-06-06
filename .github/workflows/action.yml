@@ -23,15 +23,18 @@ jobs:
         python -m pip install --upgrade pip
         pip install pyinstaller
 
+    - name: Set Date Variable
+      id: set_date
+      run: |
+        echo "::set-output name=date::$(Get-Date -Format 'yyyyMMdd_HHmmss')"
+
     - name: Create Executable
       run: |
-        $date = Get-Date -Format "yyyyMMdd_HHmmss"
-        pyinstaller --onefile --name "MyApp_$date" --windowed main.py
+        pyinstaller --onefile --name "MyApp_${{ steps.set_date.outputs.date }}" --windowed main.py
 
     - name: Move Executable
       run: |
-        $date = Get-Date -Format "yyyyMMdd_HHmmss"
-        mv ./dist/MyApp_$date.exe ./
+        Move-Item "./dist/MyApp_${{ steps.set_date.outputs.date }}.exe" "./MyApp_${{ steps.set_date.outputs.date }}.exe"
 
     - name: Configure Git
       run: |
@@ -40,9 +43,8 @@ jobs:
 
     - name: Commit executable
       run: |
-        git add MyApp_$date.exe
+        git add "MyApp_${{ steps.set_date.outputs.date }}.exe"
         git commit -m "Add generated executable"
         git push
       env:
         GITHUB_TOKEN: ${{ secrets.PAT }}
-   
