@@ -30,7 +30,7 @@ jobs:
 
     - name: Remove Existing Executable
       run: |
-        rm -f MyApp.exe
+        Remove-Item -Path ".\MyApp.exe" -Force -ErrorAction SilentlyContinue
 
     - name: Move Executable
       run: |
