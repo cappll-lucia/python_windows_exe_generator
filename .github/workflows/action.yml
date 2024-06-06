@@ -35,8 +35,7 @@ jobs:
 
     - name: Move Executable
       run: |
-        mkdir -p ./dist
-        mv ./dist/MyApp.exe ./
+        mv ./MyApp.exe ./
     
     - name: Configure Git
       run: |
