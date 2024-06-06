@@ -12,8 +12,6 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Set up Python
       uses: actions/setup-python@v2
@@ -26,17 +24,13 @@ jobs:
         pip install pyinstaller
 
     - name: Create Executable
-      uses: sayyid5416/pyinstaller@v1
-      with:
-        python_ver: '3.10'
-        spec: 'main.py'
-        upload_exe_with_name: 'MyExecutable'
-        options: '--onefile, --name "MyApp", --windowed'
+      run: |
+        pyinstaller --onefile --name "MyApp" --windowed main.py
 
     - name: Move Executable
       run: |
-        mv ./MyApp.exe ./
-    
+        mv ./dist/MyApp.exe ./
+
     - name: Configure Git
       run: |
         git config --global user.name 'github-actions[bot]'
