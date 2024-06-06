@@ -25,11 +25,16 @@ jobs:
 
     - name: Create Executable
       run: |
-        pyinstaller --onefile --name "MyApp" --windowed main.py
+        $date = Get-Date -Format "yyyyMMdd_HHmmss"
+        pyinstaller --onefile --name "MyApp_$date" --windowed main.py
+
+    - name: Remove Existing Executable
+      run: |
+        rm -f MyApp.exe
 
     - name: Move Executable
       run: |
-        mv ./dist/MyApp.exe ./
+        mv ./dist/MyApp_$date.exe ./
 
     - name: Configure Git
       run: |
@@ -38,7 +43,7 @@ jobs:
 
     - name: Commit executable
       run: |
-        git add MyApp.exe
+        git add MyApp_$date.exe
         git commit -m "Add generated executable"
         git push
       env:
