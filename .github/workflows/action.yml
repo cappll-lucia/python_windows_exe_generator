@@ -42,4 +42,4 @@ jobs:
         git commit -m "Add generated executable"
         git push
       env:
-        GITHUB_TOKEN: ${{ secrets.PYTHON_EXE_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.PAT }}
