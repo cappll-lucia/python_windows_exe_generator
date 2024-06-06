@@ -30,6 +30,7 @@ jobs:
 
     - name: Move Executable
       run: |
+        $date = Get-Date -Format "yyyyMMdd_HHmmss"
         mv ./dist/MyApp_$date.exe ./
 
     - name: Configure Git
@@ -44,3 +45,4 @@ jobs:
         git push
       env:
         GITHUB_TOKEN: ${{ secrets.PAT }}
+   
